@@ -2,9 +2,16 @@ import datetime
 import hashlib
 from flask import Flask, render_template, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
+from models import db #imports database models
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+db.init_app(app)
+
+from image_routes import image_bp  # Import AFTER app is initialized
+app.register_blueprint(image_bp)
+UPLOAD_FOLDER = "static/uploads"
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 db = SQLAlchemy(app)
 
