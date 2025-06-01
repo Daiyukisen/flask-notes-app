@@ -2,9 +2,11 @@ import datetime
 import hashlib
 from flask import Flask, render_template, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
+from image_routes import image_bp
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+app.register_blueprint(image_bp)
 
 db = SQLAlchemy(app)
 
